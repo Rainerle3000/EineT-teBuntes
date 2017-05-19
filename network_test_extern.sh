@@ -1,13 +1,25 @@
 set +v
-export MISSING_PING = /MISSING_PING.log
+
+timestamp() {
+  date +"%T"
+}
+
+export timestamp = $TIMESTAMP$
+
+export $MISSING_PING$ = /home/public/MISSING_PING_$TIMESTAMP$.log
 # <IP zum HOST>
 export TEST=8.8.8.8
 
+timestamp() {
+  date +"%T"
+}
+
+export timestamp = $TIMESTAMP$
 export /a count=1
 echo >> $MISSING_PING$
-echo |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| >> $MISSING_PING$
+echo ---------------------------------------------------------------------- >> $MISSING_PING$
 echo $DATE$ $TIME$ - MEGA PING WURDE GESTARTET >> $MISSING_PING$
-echo |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| >> $MISSING_PING$
+echo ---------------------------------------------------------------------- >> $MISSING_PING$
 echo >> $MISSING_PING$
 
 export /a count=$count$+1
