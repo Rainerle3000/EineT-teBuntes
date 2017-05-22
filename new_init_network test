@@ -17,13 +17,13 @@ cd scripts
 
 mkdir tmp
 
-	cat > network_test_extern.sh
+	#cat > network_test_extern.sh		<- Debug
 	touch network_test_extern.sh
 
-	cat > network_test_intern.sh
+	#cat > network_test_intern.sh		<- Debug
 	touch network_test_intern.sh
 	
-	cat > network_test_ulm.sh
+	#cat > network_test_ulm.sh		<- Debug
 	touch network_test_ulm.sh
 	
 #Ping extern
