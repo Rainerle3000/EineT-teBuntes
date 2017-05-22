@@ -30,6 +30,8 @@ mkdir tmp
 echo "#! /bin/bash
 set -xv
 
+cd ~/Axians-Networksurveillance/scripts
+
 ping -c 5 8.8.8.8 > ./tmp/extping_1.log
 
 sed -i '1 d' ./tmp/extping_1.log
@@ -39,21 +41,21 @@ sed -i '$ d' ./tmp/extping_1.log
 
 DATE=$(date +"%d.%m.%Y_%H:%M:%S")
 
-
-echo "-----------------------------------------" >> ./tmp/extping_2.log
-echo $DATE >> ./tmp/extping_2.log
+echo ----------------------------------------- >> ./tmp/extping_2.log
+echo $DATE  >> ./tmp/extping_2.log
 cat  ./tmp/extping_1.log >> ./tmp/extping_2.log
-echo "-----------------------------------------" >> ./tmp/extping_2.log
+echo ----------------------------------------- >> ./tmp/extping_2.log
 
 FILENAME=$(date +"%m.%Y")
 
-cat ./tmp/extping2.log >> ./external_ping_logs/$FILENAME.log
-echo 
+cat ./tmp/extping_2.log >> ./../external_ping_logs/$FILENAME.log
 exit 0" >> network_test_extern.sh
 
 #Ping intern
 echo "#! /bin/bash
 set -xv
+
+cd ~/Axians-Networksurveillance/scripts
 
 ping -c 5 10.120.14.101 > ./tmp/intping.log
 
@@ -65,20 +67,21 @@ sed -i '$ d' ./tmp/intping_1.log
 DATE=$(date +"%d.%m.%Y_%H:%M:%S")
 
 
-echo "-----------------------------------------" >> ./tmp/intping_2.log
-echo $DATE >> ./tmp/intping_2.log
+echo ----------------------------------------- >> ./tmp/intping_2.log
+echo $DATE  >> ./tmp/intping_2.log
 cat  ./tmp/intping_1.log >> ./tmp/intping_2.log
-echo "-----------------------------------------" >> ./tmp/intping_2.log
+echo ----------------------------------------- >> ./tmp/intping_2.log
 
 FILENAME=$(date +"%m.%Y")
 
-cat ./tmp/intping2.log >> ./internal_ping_logs/$FILENAME.log
-echo 
+cat ./tmp/intping_2.log >> ./../internal_ping_logs/$FILENAME.log
 exit 0" >> network_test_intern.sh
 
 #Ping ulm
 echo "#! /bin/bash
 set -xv
+
+cd ~/Axians-Networksurveillance/scripts
 
 ping -c 5 10.111.4.105  > ./tmp/ulmping.log
 
@@ -90,24 +93,23 @@ sed -i '$ d' ./tmp/ulmping_1.log
 DATE=$(date +"%d.%m.%Y_%H:%M:%S")
 
 
-echo "-----------------------------------------" >> ./tmp/ulmping_2.log
+echo ----------------------------------------- >> ./tmp/ulmping_2.log
 echo $DATE >> ./tmp/ulmping_2.log
 cat  ./tmp/ulmping_1.log >> ./tmp/ulmping_2.log
-echo "-----------------------------------------" >> ./tmp/ulmping_2.log
+echo ----------------------------------------- >> ./tmp/ulmping_2.log
 
 FILENAME=$(date +"%m.%Y")
 
-cat ./tmp/ulmping2.log >> ./ulm_ping_logs/$FILENAME.log
-echo 
+cat ./tmp/ulmping_2.log >> ./../ulm_ping_logs/$FILENAME.log
 exit 0" >> network_test_ulm.sh
 
 #exit
 cd ..
 
 #scripte zum cronfile hinzufügen um regelmäßige ausführung zu gewährleisten
-echo "30 * * * * ~/Axians-Networksurveillance/scripts/network_test_extern.sh
-30 * * * * ~/Axians-Networksurveillance/scripts/network_test_intern.sh
-30 * * * * ~/Axians-Networksurveillance/scripts/network_test_ulm.sh" >> /var/spool/cron/crontabs/$USERNAME
+echo "*/30 * * * * bash ~/Axians-Networksurveillance/scripts/network_test_extern.sh
+*/30 * * * * bash ~/Axians-Networksurveillance/scripts/network_test_intern.sh
+*/30 * * * * bash ~/Axians-Networksurveillance/scripts/network_test_ulm.sh" >> /var/spool/cron/crontabs/$USERNAME
 
 #last info
 echo If you ran this Script as Administator/root/SU everything SHOULD have worked and your maschine schould check all 3 IP Adresses frequently. HOWEVER, you now need to restart your maschine or at least the Cron Service/programm to make all scripts work as intendet: You can do this by entering '/etc/init.d/crond restart' or 'service crond restart' or 'systemctl restart crond.service'. Proceed as you wish. GL HF.
