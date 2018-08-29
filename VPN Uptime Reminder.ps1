@@ -1,4 +1,4 @@
-﻿function KillItOrNot
+function KillItOrNot
 {
  $shutdown = [System.Windows.Forms.MessageBox]::Show("Möchten Sie die VM wirklich Heunterfahren?","VM Onlinezeit erreicht",4,[System.Windows.Forms.MessageBoxIcon]::Exclamation)
                     if ($shutdown -eq "Yes")
@@ -18,7 +18,7 @@
 
 function WaitForIt
 {
-Start-Sleep -s 10
+Start-Sleep -s 720
 main
 }
 
@@ -29,8 +29,7 @@ $uptime = ((get-date) - ($os.ConvertToDateTime($os.lastbootuptime))).Days
 
 if ($uptime -ge 5)
     {
-    $Result = [System.Windows.Forms.MessageBox]::Show("Achtung! $([System.Environment]::NewLine)
-        Die VM ist seit $uptime Tagen online.$([System.Environment]::NewLine)" +
+    $Result = [System.Windows.Forms.MessageBox]::Show("Achtung!$([System.Environment]::NewLine)Die VM ist seit $uptime Tagen online.$([System.Environment]::NewLine)" +
         "Aus Sicherheitsgünden muss die VM nach der Benutzung unverzüglich Heruntergefahren werden.$([System.Environment]::NewLine)" +
         "Möchten Sie die VM Heunterfahren?","VM Onlinezeit erreicht",4,[System.Windows.Forms.MessageBoxIcon]::Exclamation)
  
